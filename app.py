@@ -190,6 +190,39 @@ def delete_chat(chat_id):
     else:
         return redirect(url_for('home'))
 
+@app.route("/chat/<chat_id>/rename", methods=["POST"])
+def rename_chat(chat_id):
+    if 'user' not in session:
+        return redirect(url_for('signup'))
+    
+    new_title = request.form.get("new_title")
+    history = load_history()
+    for chat in history:
+        if chat['id'] == chat_id:
+            chat['title'] = new_title
+            break
+    save_history(history)
+    return redirect(url_for("chat", chat_id=chat_id))
+
+@app.route("/chat/<chat_id>/remove", methods=["POST"])
+def remove_chat(chat_id):
+    if 'user' not in session:
+        return redirect(url_for('signup'))
+
+    history = load_history()
+    history = [chat for chat in history if chat['id'] != chat_id]
+    save_history(history)
+
+    if history:
+        return redirect(url_for('chat', chat_id=history[-1]['id']))
+    else:
+        return redirect(url_for('home'))
+
+
+
+    
+
+
 # -------------------- Run Server --------------------
 if __name__ == "__main__":
     app.run(debug=True)

@@ -46,16 +46,74 @@
       margin-bottom: 20px;
     }
 
-    .sidebar a {
-      display: block;
+    .chat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin: 10px 0;
-      color: #ccc;
-      text-decoration: none;
-      font-size: 1rem;
+      position: relative;
     }
 
-    .sidebar a:hover {
+    .chat-title {
+      flex: 1;
+      color: #ccc;
+      text-decoration: none;
+      padding: 5px;
+    }
+
+    .chat-title:hover {
       color: #10abb9;
+    }
+
+    .dots {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #888;
+      cursor: pointer;
+      padding: 5px;
+    }
+
+    .menu {
+      position: absolute;
+      right: 0;
+      top: 30px;
+      background-color: #1f1f1f;
+      border: 1px solid #333;
+      border-radius: 6px;
+      padding: 10px;
+      z-index: 1000;
+      width: 150px;
+    }
+
+    .menu input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 5px;
+      background: #2a2a2a;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .menu button {
+      width: 100%;
+      padding: 5px;
+      border: none;
+      border-radius: 4px;
+      margin-top: 5px;
+      cursor: pointer;
+      background-color: #00ffd9;
+      color: #000;
+    }
+
+    .menu button.delete {
+      background-color: #ff4d4d;
+      color: white;
+    }
+
+    .hidden {
+      display: none;
     }
 
     .sidebar .new-chat {
@@ -206,22 +264,30 @@
   </style>
 </head>
 <body>
-  <!-- Hamburger Button -->
   <button class="hamburger" onclick="toggleSidebar()">☰</button>
-
-  <!-- Logout -->
   <a href="/logout" class="logout-button">Logout</a>
 
-  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <h2>🤖 ChittiGPT</h2>
     {% for chat in chats %}
-      <a href="/chat/{{ chat.id }}">{{ chat.title }}</a>
+    <div class="chat-item">
+      <a href="/chat/{{ chat.id }}" class="chat-title">{{ chat.title }}</a>
+      <button class="dots" onclick="toggleMenu('{{ chat.id }}')">⋮</button>
+      <div id="menu-{{ chat.id }}" class="menu hidden">
+<form action="/chat/{{ chat.id }}/rename" method="POST">
+  <input type="text" name="new_title" placeholder="Rename chat" required />
+  <button type="submit">Rename</button>
+</form>
+<form action="/chat/{{ chat.id }}/remove" method="POST">
+  <button type="submit" class="delete">Delete</button>
+</form>
+
+      </div>
+    </div>
     {% endfor %}
     <a href="/new" class="new-chat">+ New Chat</a>
   </div>
 
-  <!-- Main -->
   <div class="main" id="mainContent">
     <div class="header">
       <h2>Hai, {{ username }}</h2>
@@ -252,7 +318,21 @@
       sidebar.classList.toggle("hidden");
       main.classList.toggle("full");
     }
+
+    function toggleMenu(chatId) {
+      const menu = document.getElementById(`menu-${chatId}`);
+      const allMenus = document.querySelectorAll('.menu');
+      allMenus.forEach(m => {
+        if (m !== menu) m.classList.add('hidden');
+      });
+      menu.classList.toggle('hidden');
+    }
+
+    document.addEventListener("click", function(e) {
+      if (!e.target.closest(".chat-item")) {
+        document.querySelectorAll(".menu").forEach(m => m.classList.add("hidden"));
+      }
+    });
   </script>
 </body>
-</html> 
-
+</html>
