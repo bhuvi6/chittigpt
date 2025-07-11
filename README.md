@@ -1,128 +1,127 @@
+Absolutely, Bhuvi! Here's your **final `README.md`** for the **ChittiGPT** project — clean, professional, and submission-ready:
 
+---
 
+```markdown
+# 🤖 ChittiGPT – Your Personal AI Chatbot
 
+ChittiGPT is a full-stack conversational AI chatbot built with **Flask**, powered by **Gemini AI**, and styled with a responsive dark-themed UI. It supports multiple user accounts, chat history, smart chat titles, and conversation management features like renaming and deleting chats.
 
-# 🤖 ChittiGPT – Personalized AI Chatbot using Gemini
+---
 
-A minimalist, privacy-focused chatbot featuring user authentication and persistent chat history, powered by Google's Gemini AI. Built with Flask and pure HTML/CSS, ChittiGPT delivers a clean, secure, and personal AI experience.
+## 🚀 Features
 
+- 🔐 User Signup/Login with session-based authentication
+- 💬 Gemini-powered chat responses using `gemini-1.5-flash`
+- 📂 Multiple chat histories per user (stored as JSON files)
+- 🧠 Smart auto-titling for new conversations
+- ✏️ Rename chats with inline modal
+- 🗑️ Delete conversations from the sidebar
+- 📱 Mobile-responsive layout with hamburger menu
+- 🌙 Dark-themed modern UI
+- 🔓 Logout functionality
 
-## ✨ Key Features
+---
 
-### 🔐 Secure Authentication
-- User registration and login
-- Passwords hashed using Werkzeug
-- Session-based login flow
+## 🛠️ Technologies Used
 
-### 💬 Smart Chat Handling
-- Each user has separate chat history
-- Unique chat IDs and titles
-- Titles generated automatically by AI
+| Layer          | Stack                       |
+|----------------|-----------------------------|
+| Backend        | Python, Flask               |
+| AI Model       | Gemini 1.5 Flash (Google)   |
+| Frontend       | HTML, CSS (No JS frameworks)|
+| Database       | JSON-based local storage    |
+| Security       | Password hashing with Werkzeug |
+| Deployment     | Flask Dev Server (localhost) |
+| Version Control| Git & GitHub                |
 
-### 🧠 Gemini AI Integration
-- Uses Gemini 1.5 Flash for natural, fast responses
-- Prompt-to-title summarization
-- Error handling for API failures
+---
 
+## 🧾 Folder Structure
 
+```
 
+chittigpt/
+│
+├── templates/
+│   ├── index.html         # Main chat UI
+│   ├── login.html         # Login page
+│   └── signup.html        # Signup page
+│
+├── app.py                 # Flask application
+├── users.json             # Registered user info
+├── chat\_history\_\*.json    # Chat histories per user
+├── .env                   # API key & secret key
+└── README.md              # Project overview
 
-### 🎨 Dark Minimal UI 
-- Pure HTML/CSS interface
-- Responsive layout
-- Top-right logout and center greeting
+````
 
-## 🛠 Installation Guide
+---
 
-### 🔧 Prerequisites
-- Python 3.8+
-- Google Gemini API Key
-- pip (Python package manager)
+## 📝 Setup Instructions
 
-### ⚙️ Setup Instructions
-
-1. Clone the repository
+1. **Clone the repo**
    ```bash
    git clone https://github.com/bhuvi6/chittigpt.git
    cd chittigpt
-   ```
+````
 
-2. Create a virtual environment
+2. **Create a virtual environment**
+
    ```bash
    python -m venv venv
+   venv\Scripts\activate   # On Windows
    ```
 
-3. Activate the environment
-   - **Windows**:
-     ```bash
-     venv\Scripts\activate
-     ```
-   - **macOS/Linux**:
-     ```bash
-     source venv/bin/activate
-     ```
+3. **Install dependencies**
 
-4. Install dependencies
    ```bash
-   pip install -r requirements.txt
+   pip install flask python-dotenv google-generativeai
    ```
 
-5. Configure your environment  
-   Create a `.env` file in the root folder and add:
-   ```
-   GEMINI_API_KEY=your_gemini_api_key_here
-   SECRET_KEY=your_flask_secret_key_here
+4. **Set up your `.env` file**
+
+   ```env
+   GEMINI_API_KEY=your_gemini_api_key
+   SECRET_KEY=your_flask_secret_key
    ```
 
-## 🚀 Usage Guide
+5. **Run the app**
 
-1. Start the Flask server
    ```bash
    python app.py
    ```
 
-2. Open in your browser
-   ```
-   http://localhost:5000
-   ```
-
-3. Chatbot Flow
-   - Sign up or log in
-   - Start new chats or continue old ones
-   - View/delete your chat history
-   - Logout securely
-
-## 📂 Project Structure
-
-```
-chittigpt/
-├── app.py            # Flask app logic
-├── .env              # API keys & secret key
-├── users.json        # Stores registered users
-├── requirements.txt  # Python dependencies
-└── templates/        # Frontend HTML templates
-    ├── index.html    # Main chatbot page
-    ├── login.html    # Login form
-    └── signup.html   # Signup form
-```
-
-## 🔧 Configuration Notes
-
-### Gemini API Setup
-- Get your key from Google AI Studio
-- Paste it into `.env` like this:
-  ```
-  GEMINI_API_KEY=your_key
-  ```
-
-### Security
-- Keep `.env` out of version control
-- Use strong `SECRET_KEY`
-- Use hashed passwords (already implemented)
+6. Visit `http://127.0.0.1:5000` in your browser 🎉
 
 ---
 
-🧑‍💻 **Author**: Bhuvaneswari V  
-📅 **Created for**: K-Hub 2025–26 Recruitment
-```
+## 📸 Demo Screenshots
 
+> Add your screenshots here:
+
+* Signup/Login Page
+* Chat Interface
+* Rename/Delete Chat Menu
+* Mobile View
+
+---
+
+##  Made  by Bhuvaneswari
+
+This project was built as part of **K-Hub 2025–26 recruitment** to demonstrate real-world skills in AI, web development, and UI/UX.
+
+---
+
+````
+
+### ✅ Next Steps
+- Add this file as `README.md` in your GitHub repo root.
+- Push it:
+  ```bash
+  git add README.md
+  git commit -m "Added final README"
+  git push origin main
+````
+
+Let me know if you'd also like a **short demo video script** or **submission writeup** for the K-Hub team!
