@@ -3,7 +3,7 @@
 
 
 
-ChittiGPT is a full-stack conversational AI chatbot built with **Flask**, powered by **Gemini AI**, featuring a responsive dark-themed UI. With user authentication and persistent chat history, it delivers a personalized AI experience without JavaScript.
+“ChittiGPT is a Flask-based chatbot platform styled with custom HTML/CSS, backed by MongoDB for storing user chat history, and powered by Google’s Gemini API for generating AI responses — all wrapped in a mobile-responsive UI with dynamic sidebar navigation.”
 
 ## 🌟 Key Features
 
@@ -124,10 +124,6 @@ Customize your experience by modifying:
 - `styles.css`: Adjust colors, layout, or responsive breakpoints
 - `.env`: Set different API keys for development/production
 
-## 📸 Screenshots *(Add actual screenshots)*
-- [Login Page]()
-- [Chat Interface]()
-- [Mobile View]()
 
 ## 👩‍💻 Author & Credits
 
