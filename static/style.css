@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #202123;
+    color: white;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.sidebar h2 {
+    margin-top: 0;
+}
+
+.sidebar form {
+    margin-bottom: 10px;
+}
+
+.sidebar button {
+    width: 100%;
+    padding: 10px;
+    background: #343541;
+    border: none;
+    color: white;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.sidebar button:hover {
+    background: #444654;
+}
+
+.sidebar .active {
+    background: #10a37f;
+}
+
+/* Main Chat Area */
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.chat-window {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    padding-right: 10px;
+}
+
+.message {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    max-width: 80%;
+}
+
+.user {
+    background: #e2f0ff;
+    align-self: flex-start;
+}
+
+.bot {
+    background: #e9ffe2;
+    align-self: flex-end;
+}
+
+.chat-form {
+    display: flex;
+    gap: 10px;
+}
+
+.chat-form textarea {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.chat-form button {
+    padding: 10px 20px;
+    background: #10a37f;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
