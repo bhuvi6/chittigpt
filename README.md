@@ -49,7 +49,7 @@
    git clone https://github.com/bhuvi6/chittigpt.git
    cd chittigpt
 
-2.Create a virtual environment
+2.**Create a virtual environment**
    python -m venv venv
 # Activate the environment
 # For Windows:
@@ -57,16 +57,16 @@
 # For macOS/Linux:
    source venv/bin/activate
 
-3.Install dependencies
+3.**Install dependencies**
 pip install -r requirements.txt
 
-4.Configure your environment
+4.**Configure your environment**
 Create a .env file in the root folder and add:
  GEMINI_API_KEY=your_gemini_api_key_here
  SECRET_KEY=your_flask_secret_key_here
 
 
-🚀 Usage Guide
+🚀 **Usage Guide**
 1.Start the Flask server
   python app.py
 2.Open in your browser
@@ -78,7 +78,7 @@ Create a .env file in the root folder and add:
   Logout securely
 
 
-📂 Project Structure
+📂** Project Structure**
 bash
 chittigpt/
 ├── app.py                # Flask app logic
@@ -91,13 +91,12 @@ chittigpt/
     ├── signup.html       # Signup form
 
 
-🔧 Configuration Notes
+🔧 **Configuration Notes**
 Gemini API Setup
 Get your key from Google AI Studio
-
 Paste it into .env like this:
   GEMINI_API_KEY=your_key
-Security
+**Security**
   Keep .env out of version control
   Use strong SECRET_KEY
   Use hashed passwords (already implemented)
