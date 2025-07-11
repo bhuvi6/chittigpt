@@ -9,7 +9,7 @@ A minimalist, privacy-focused chatbot featuring user authentication and persiste
 # 🤖 ChittiGPT – Personalized AI Chatbot using Gemini
 
 A minimalist, privacy-focused chatbot featuring user authentication and persistent chat history, powered by Google's Gemini AI. Built with Flask and pure HTML/CSS, ChittiGPT delivers a clean, secure, and personal AI experience.
->>>>>>> 6664c1c9acb46df84c00e62ba4a33063858584f1
+
 
 ## ✨ Key Features
 
@@ -32,7 +32,6 @@ A minimalist, privacy-focused chatbot featuring user authentication and persiste
 ### 🎨 Dark Minimal UI (No JavaScript)
 
 ### 🎨 Dark Minimal UI 
->>>>>>> 6664c1c9acb46df84c00e62ba4a33063858584f1
 - Pure HTML/CSS interface
 - Responsive layout
 - Top-right logout and center greeting
