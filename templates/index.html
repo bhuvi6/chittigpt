@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>ChittiGPT</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * { box-sizing: border-box; }
 
-    body {
+    html, body {
       margin: 0;
+      padding: 0;
+      height: 100%;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #121212;
       color: #f5f5f5;
+      overflow: hidden;
+    }
+
+    body {
       display: flex;
-      height: 100vh;
     }
 
     .sidebar {
@@ -21,6 +26,18 @@
       background-color: #1c1c1c;
       padding: 20px;
       border-right: 1px solid #333;
+      transition: transform 0.3s ease;
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 1000;
+      height: 100vh;
+      transform: translateX(0);
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%);
     }
 
     .sidebar h2 {
@@ -35,7 +52,6 @@
       color: #ccc;
       text-decoration: none;
       font-size: 1rem;
-      transition: color 0.2s ease;
     }
 
     .sidebar a:hover {
@@ -55,56 +71,65 @@
     }
 
     .main {
-      flex: 1;
+      margin-left: 250px;
       padding: 20px;
       overflow-y: auto;
+      flex: 1;
+      transition: margin-left 0.3s ease;
+      height: 100vh;
+    }
+
+    .main.full {
+      margin-left: 0;
     }
 
     .header {
       text-align: center;
-      margin-top: 60px;
       margin-bottom: 20px;
     }
 
     .header h2 {
       color: #00ffd9;
-      font-size: 2rem;
-    }
-
-    .header p {
-      font-style: italic;
-      color: #bbbbbb;
-      margin-top: 8px;
     }
 
     .chat-box {
       background-color: #1f1f1f;
       padding: 20px;
       border-radius: 12px;
-      min-height: 400px;
+      height: calc(100vh - 250px);
+      overflow-y: auto;
     }
 
     .chat-entry {
       margin: 15px 0;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #333;
+      display: flex;
+      flex-direction: column;
     }
 
     .user {
-      color: #ffa07a;
-      font-weight: bold;
-      margin-top: 10px;
+      background-color: #1a2417;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 60%;
+      align-self: flex-end;
+      word-wrap: break-word;
     }
 
     .bot {
-      color: #98fb98;
-      font-weight: bold;
+      background-color: #1a2417;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 45%;
+      align-self: flex-start;
+      word-wrap: break-word;
       margin-top: 8px;
     }
 
     form {
       display: flex;
+      gap: 10px;
       margin-top: 20px;
+      flex-wrap: wrap;
     }
 
     input[type="text"] {
@@ -115,18 +140,17 @@
       font-size: 1rem;
       background-color: #2a2a2a;
       color: #fff;
+      min-width: 0;
     }
 
     button {
       padding: 10px 20px;
-      margin-left: 10px;
       border-radius: 6px;
       border: none;
       background-color: #00ffd9;
       color: #000;
       font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.2s ease;
     }
 
     button:hover {
@@ -140,7 +164,6 @@
       color: #888;
     }
 
-    /* Logout Button Top Right */
     .logout-button {
       position: fixed;
       top: 15px;
@@ -152,21 +175,45 @@
       border-radius: 6px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 0.95rem;
     }
 
-    .logout-button:hover {
-      background-color: #00e6c0;
+    .hamburger {
+      display: block;
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 1100;
+      font-size: 1.5rem;
+      color: #00ffd9;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .main {
+        margin-left: 0;
+      }
+
+      .bot, .user {
+        max-width: 85%;
+      }
+
+      .chat-box {
+        height: 40vh;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Hamburger Button -->
+  <button class="hamburger" onclick="toggleSidebar()">☰</button>
 
-  <!-- Top-right Logout Button -->
+  <!-- Logout -->
   <a href="/logout" class="logout-button">Logout</a>
 
   <!-- Sidebar -->
-  <div class="sidebar">
+  <div class="sidebar" id="sidebar">
     <h2>🤖 ChittiGPT</h2>
     {% for chat in chats %}
       <a href="/chat/{{ chat.id }}">{{ chat.title }}</a>
@@ -174,8 +221,8 @@
     <a href="/new" class="new-chat">+ New Chat</a>
   </div>
 
-  <!-- Main Section -->
-  <div class="main">
+  <!-- Main -->
+  <div class="main" id="mainContent">
     <div class="header">
       <h2>Hai, {{ username }}</h2>
       <p>Welcome to ChittiGPT</p>
@@ -183,12 +230,10 @@
 
     <div class="chat-box">
       {% for msg in current_chat.messages %}
-      <div class="chat-entry">
-        <div class="user">You:</div>
-        <div>{{ msg.user }}</div>
-        <div class="bot">ChittiGPT:</div>
-        <div>{{ msg.bot }}</div>
-      </div>
+        <div class="chat-entry">
+          <div class="user">{{ msg.user }}</div>
+          <div class="bot">{{ msg.bot }}</div>
+        </div>
       {% endfor %}
     </div>
 
@@ -197,9 +242,17 @@
       <button type="submit">Send</button>
     </form>
 
-    <footer>
-       Created by Bhuvi | Powered by Gemini AI
-    </footer>
+    <footer>Created by Bhuvi | Powered by Gemini AI</footer>
   </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const main = document.getElementById("mainContent");
+      sidebar.classList.toggle("hidden");
+      main.classList.toggle("full");
+    }
+  </script>
 </body>
-</html>
+</html> 
+
